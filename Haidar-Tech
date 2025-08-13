@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Haidar Tech & Consultancy Services</title>
+  <style>
+    :root{
+      --white: #ffffff;
+      --black: #0b0b0b;
+      --red: #C40000;
+      --gold: #D4AF37;
+      --muted: #f8f6f3;
+    }
+
+    /* base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:20px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--white);
+      color:var(--black);
+      -webkit-font-smoothing:antialiased;
+      cursor: none; /* hide native cursor since we use a custom one */
+    }
+
+    /* outer decorative border */
+    .card{
+      max-width:1100px;
+      margin:0 auto;
+      padding:26px;
+      border-radius:18px;
+      background:linear-gradient(180deg,var(--white),#fff);
+      position:relative;
+      box-shadow: 0 18px 50px rgba(11,11,11,0.06);
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-6px;
+      border-radius:22px;
+      background:conic-gradient(from 120deg, var(--gold), var(--red), rgba(0,0,0,0.02));
+      filter: blur(10px);
+      z-index:-2;
+      opacity:0.95;
+    }
+    .card:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      padding:2px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.01));
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{
+      width:76px;height:76px;border-radius:12px;
+      display:grid;place-items:center;font-weight:800;font-size:20px;
+      background:linear-gradient(135deg,var(--black), rgba(0,0,0,0.85));
+      color:var(--gold); border:3px solid rgba(255,255,255,0.06);
+    }
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 0;color:#333;font-size:13px}
+
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{text-decoration:none;padding:8px 12px;border-radius:8px;font-size:14px}
+    .btn-cta{background:linear-gradient(90deg,var(--red),var(--gold));color:#fff;font-weight:700}
+
+    main{margin-top:18px;display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    @media (max-width:980px){ main{grid-template-columns:1fr} }
+
+    /* left column */
+    .hero{padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);background:var(--muted)}
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
+    .service{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(212,175,55,0.06), rgba(196,0,0,0.02));border:1px solid rgba(0,0,0,0.04)}
+    .service h3{margin:0 0 6px;font-size:16px}
+    .service p{margin:0;color:#333;font-size:13px}
+
+    /* right column contact */
+    .contact-box{padding:18px;border-radius:12px;border-left:6px solid var(--gold);background:#fff}
+    .contact-box p{margin:8px 0;font-size:14px}
+
+    /* about */
+    .about{display:flex;gap:16px;align-items:center;margin-top:18px}
+    .about .bio{flex:1}
+    .about .photo{width:200px;height:200px;border-radius:12px;overflow:hidden;border:5px solid var(--red);display:grid;place-items:center}
+    .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* contact form */
+    .form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    @media (max-width:700px){ .form{grid-template-columns:1fr} }
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);font-size:13px}
+    .send{grid-column:1/-1;display:flex;justify-content:flex-end}
+
+    footer{margin-top:18px;padding-top:12px;border-top:1px dashed rgba(0,0,0,0.04);display:flex;justify-content:space-between;flex-wrap:wrap;font-size:13px}
+
+    /* custom cursor */
+    .cursor{
+      position:fixed;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;
+      width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+      background:linear-gradient(180deg,var(--gold),var(--red));
+      box-shadow:0 8px 30px rgba(196,0,0,0.12);
+      border:2px solid rgba(255,255,255,0.9);
+      transition:transform .12s ease, width .12s ease, height .12s ease, opacity .12s;
+      mix-blend-mode:normal;
+    }
+    .cursor.small{width:8px;height:8px;opacity:0.95}
+    .cursor.big{width:72px;height:72px;opacity:0.95;filter:blur(0.3px)}
+
+    .cursor-ring{
+      position:fixed;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;z-index:9998;
+      width:120px;height:120px;border-radius:50%;border:2px dashed rgba(212,175,55,0.12);transition:transform .18s ease, opacity .2s;
+    }
+
+    /* hover emphasis for interactive elements */
+    a:hover, button:hover, .service:hover{transform:translateY(-4px)}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header>
+      <div class="brand">
+        <div class="logo">HT</div>
+        <div>
+          <h1>Haidar Tech & Consultancy Services</h1>
+          <p class="lead">Innovating Solutions, Empowering Businesses — Damaturu, Yobe State</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="btn-cta">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="services">
+        <h2 style="margin:0 0 8px">Digital services built for growth</h2>
+        <p style="margin:0 0 12px;color:#333">We provide web development, graphic design, computer maintenance & repairs, and ICT sales with local support and personalized service.</p>
+
+        <div class="services">
+          <div class="service">
+            <h3>Web Development</h3>
+            <p>Responsive websites, e-commerce, and web apps tailored to you.</p>
+          </div>
+          <div class="service">
+            <h3>Graphic Design</h3>
+            <p>Logo & brand identity, marketing materials and social assets.</p>
+          </div>
+          <div class="service">
+            <h3>Computer Maintenance</h3>
+            <p>Hardware repairs, software setup and performance tuning.</p>
+          </div>
+          <div class="service">
+            <h3>Sales & Repairs</h3>
+            <p>Trusted ICT equipment, spare parts and after-sales support.</p>
+          </div>
+        </div>
+
+        <div class="about" id="about">
+          <div class="bio">
+            <h3 style="margin:0 0 8px">About Haidar Tech</h3>
+            <p style="margin:0;color:#333">A forward-thinking technology and consultancy firm focused on practical, affordable, and reliable ICT solutions for businesses and individuals across Yobe State and beyond.</p>
+            <p style="margin-top:10px"><strong>Mission:</strong> Provide innovative and cost-effective technology solutions that empower businesses to grow.</p>
+            <p style="margin-top:6px"><strong>Values:</strong> Innovation • Integrity • Excellence • Customer-focus</p>
+          </div>
+          <div class="photo">
+            <!-- Replace the src below with your CEO photo file name when ready -->
+            <img src="https://via.placeholder.com/600x600.png?text=CEO+Photo+Placeholder" alt="CEO - Aliyu Abdulkadir">
+          </div>
+        </div>
+      </section>
+
+      <aside class="contact-box" id="contact">
+        <h3 style="margin:0 0 8px">Contact</h3>
+        <p><strong>Address:</strong> GRA, Damaturu, Yobe State, Nigeria</p>
+        <p><strong>Phone:</strong> +234 814 881 9994</p>
+        <p><strong>Email:</strong> aliyuakdass8@gmail.com</p>
+        <div style="margin-top:12px">
+          <a class="btn-cta" href="mailto:aliyuakdass8@gmail.com" style="padding:10px 14px;border-radius:8px;color:#fff;text-decoration:none;display:inline-block">Send Email</a>
+        </div>
+      </aside>
+    </main>
+
+    <section style="max-width:1100px;margin:18px auto 0;padding:0 26px">
+      <form class="form" onsubmit="event.preventDefault(); alert('Demo: message ready to send.');">
+        <input type="text" placeholder="Full name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message" rows="4" style="grid-column:1/-1"></textarea>
+        <div class="send">
+          <button type="submit" style="background:linear-gradient(90deg,var(--red),var(--gold));color:#fff;border:none;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer">Send Message</button>
+        </div>
+      </form>
+    </section>
+
+    <footer>
+      <div>© Haidar Tech & Consultancy Services — Damaturu, Yobe State</div>
+      <div style="color:#444">Colors: White • Red • Golden</div>
+    </footer>
+  </div>
+
+  <!-- custom cursor elements -->
+  <div id="cursor" class="cursor" aria-hidden="true"></div>
+  <div id="ring" class="cursor-ring" aria-hidden="true"></div>
+
+  <script>
+    // Custom cursor script (single-file, no libraries)
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('ring');
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+    let ringX = mouseX, ringY = mouseY;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%)`;
+      // ring follows with lag
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%)`;
+    });
+
+    // interactive hover states
+    const interactives = document.querySelectorAll('a,button,input,textarea,.service');
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('big');
+        ring.style.opacity = '0.18';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('big');
+        ring.style.opacity = '1';
+      });
+    });
+
+    // idle subtle state
+    let lastMove = Date.now();
+    document.addEventListener('mousemove', () => lastMove = Date.now());
+    setInterval(() => {
+      if (Date.now() - lastMove > 2500) {
+        cursor.classList.add('small');
+        ring.style.opacity = '0.06';
+      } else {
+        cursor.classList.remove('small');
+        ring.style.opacity = '1';
+      }
+    }, 700);
+
+    // accessibility: allow keyboard focus outlines for tab users
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        document.body.style.cursor = 'auto'; // show native cursor for keyboard users
+      }
+    });
+  </script>
+</body>
+</html>
